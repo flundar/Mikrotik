@@ -4,10 +4,15 @@ const fs = require('fs')
 
 router
 
-.get('/', function(req, res){
-	console.log(`istek`)
-	console.log(req)
-  
-})
+	.post('/', function (req, res) {
+		console.log(`istek`)
+		if (req.body.username || req.body.password) {
+			if (req.body.username == "flundar" || req.body.username == "utku") {
+				res.render('index', {
+					
+				})
+			}
+		}
+	})
 
 module.exports = router;
