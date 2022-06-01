@@ -6,6 +6,7 @@ router
 
 .get('/', function(req, res){
 	console.log(`istek`)
+  
 })
 
 module.exports = router;

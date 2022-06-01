@@ -6,7 +6,6 @@ const fs = require('fs')
 const bodyParser = require("body-parser");
 const routing = require('./lib/routes.json')
 const db = require("./lib/database")
-const jsonexample = require("./helloworld.json")
 const { json } = require('body-parser')
 const RosApi = require('node-routeros').RouterOSAPI;
 
@@ -34,7 +33,10 @@ const conn = new RosApi({
    ROUTES STARTS HERE
 */
 
-app.use('/api/dagkomando', require(routing.dagkomando))
+app.use('/api/vpn/add', require(routing.vpnadd))
+app.use('/api/vpn/login', require(routing.vpnlogin))
+app.use('/api/vpn/remove', require(routing.vpnremove))
+app.use('/api/vpn/list', require(routing.vpnlist))
 
 /*
    ROUTES ENDS HERE
@@ -48,44 +50,44 @@ app.get('/', function (req, res) {
 
 
 
-conn.connect()
-    .then(() => {
-        // Connection successful
+// conn.connect()
+//     .then(() => {
+//         // Connection successful
 
-        // Let's add an IP address to ether2
-        conn.write('/ppp/secret/add',[
-         '=name=utkASDASu',
-         '=password=utkuadsd1994',
-         '=profile=denemevpn',
-        ]
-        )
-            .then((data) => {
-               for(let i = 0; i < data.length; i++)
-               {
-                  console.log(i)
-                  console.log(data[i].profile, data[i].password);
-               }
+//         // Let's add an IP address to ether2
+//         conn.write('/ppp/secret/add',[
+//          '=name=utkASDASu',
+//          '=password=utkuadsd1994',
+//          '=profile=denemevpn',
+//         ]
+//         )
+//             .then((data) => {
+//                for(let i = 0; i < data.length; i++)
+//                {
+//                   console.log(i)
+//                   console.log(data[i].profile, data[i].password);
+//                }
                 
 
-                // Added the ip address, let's print it
-                return conn.write('/ip/address/print', ['?.id=' + data[0].ret]);
-            })
-    })
-    .catch((err) => {
-        console.log(err);
-    });
+//                 // Added the ip address, let's print it
+//                 return conn.write('/ip/address/print', ['?.id=' + data[0].ret]);
+//             })
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//     });
 
 
 app.get('/home', function (req, res) {
   res.render('index', {
-    isim : localisim,
+    // isim : localisim,
   })
 })
 
 
 
 console.log("---------------------------------------------")
-console.log("flundar.com is active and running for service")
+console.log(" is active and running for service")
 console.log("---------------------------------------------")
 
 

@@ -1,6 +1,6 @@
 {
-    "login": "./routes/api/vpn/login",
+    "vpnlogin": "./routes/api/vpn/login",
     "vpnadd": "./routes/api/vpn/add",
-    "vpnremove": "./routes/vpn/api/remove",
+    "vpnremove": "./routes/api/vpn/remove",
     "vpnlist": "./routes/api/vpn/list"
 }
