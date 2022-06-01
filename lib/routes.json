@@ -1,0 +1,11 @@
+{
+    "steamusername": "./routes/steam/api/username",
+    "steamavatar": "./routes/steam/api/avatar",
+    "launcheradd": "./routes/launcher/api/add",
+    "launcherremove": "./routes/launcher/api/remove",
+    "launcherupdate": "./routes/launcher/api/update",
+    "carxdiscordhook": "./routes/carx/discordhook",
+    "dagkomando": "./routes/api/dagkomando",
+    "showimage": "./routes/api/show"
+    
+}

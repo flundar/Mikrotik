@@ -1,0 +1,4 @@
+{
+   "mysqlon" : false,
+   "mysql" : ["10.10.70.129", "root", "", "flundar"]
+}
