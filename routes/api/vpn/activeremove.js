@@ -23,14 +23,16 @@ router
 
   .post('/', function (req, res) {
     console.log(`istek`)
+	
     if (req.body.id || req.body.id == 0) {
-      console.log(req.body.id)
+	  console.log(req.body.id)
       conn.connect()
         .then(() => {
-          conn.write('/ppp/secret/remove', [
+          conn.write('/ppp/active/remove', [
               '=.id=' + req.body.id,
             ])
             .then((data) => {
+			  console.log(data)
 			  res.send("finished")
               if(data.toString().toLowerCase().includes("already")){
                 console.log("üye bulunmaktadır")

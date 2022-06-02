@@ -38,6 +38,7 @@ app.use('/api/vpn/login', require(routing.vpnlogin))
 app.use('/api/vpn/remove', require(routing.vpnremove))
 app.use('/api/vpn/list', require(routing.vpnlist))
 app.use('/api/vpn/edit', require(routing.vpnedit))
+app.use('/api/vpn/activeremove', require(routing.vpnactiveremove))
 
 /*
    ROUTES ENDS HERE
@@ -66,6 +67,26 @@ app.get('/menu', function (req, res) {
         .then((data) => {
           res.render('menu', {
             profiles: data,
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+          return
+        });
+    })
+    .catch((err) => {
+      console.log(err)
+      return
+    });
+})
+
+app.get('/activeusers', function (req, res) {
+  conn.connect()
+    .then(() => {
+      conn.write('/ppp/active/getall')
+        .then((data) => {
+          res.render('activeusers', {
+            active: data,
           })
         })
         .catch((err) => {

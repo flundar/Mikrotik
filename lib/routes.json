@@ -3,5 +3,6 @@
     "vpnadd": "./routes/api/vpn/add",
     "vpnremove": "./routes/api/vpn/remove",
     "vpnlist": "./routes/api/vpn/list",
-    "vpnedit": "./routes/api/vpn/edit"
+    "vpnedit": "./routes/api/vpn/edit",
+    "vpnactiveremove": "./routes/api/vpn/activeremove"
 }
