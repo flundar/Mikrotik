@@ -6,7 +6,9 @@ const fs = require('fs')
 const bodyParser = require("body-parser");
 const routing = require('./lib/routes.json')
 const db = require("./lib/database")
-const { json } = require('body-parser')
+const {
+  json
+} = require('body-parser')
 
 const settings = require('./config.json')
 const RosApi = require('node-routeros').RouterOSAPI;
@@ -35,6 +37,7 @@ app.use('/api/vpn/add', require(routing.vpnadd))
 app.use('/api/vpn/login', require(routing.vpnlogin))
 app.use('/api/vpn/remove', require(routing.vpnremove))
 app.use('/api/vpn/list', require(routing.vpnlist))
+app.use('/api/vpn/edit', require(routing.vpnedit))
 
 /*
    ROUTES ENDS HERE
@@ -56,31 +59,25 @@ conn.on('error', (err) => {
   console.log(err);
 });
 
-var dataprofiles
 app.get('/menu', function (req, res) {
   conn.connect()
-  .then(() => {
-    conn.write('/ppp/secret/getall')
-      .then((data) => {
-        console.log(data);
-        dataprofiles = data
-        return
-      })
-      .catch((err) => {
-        console.log(err)
-        return
-      });
-  })
-  .catch((err) => {
-    console.log(err)
-    return
-  });
-  conn.close()
-  res.render('add', {
-    profiles: dataprofiles 
-  })
+    .then(() => {
+      conn.write('/ppp/secret/getall')
+        .then((data) => {
+          res.render('menu', {
+            profiles: data,
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+          return
+        });
+    })
+    .catch((err) => {
+      console.log(err)
+      return
+    });
 })
-
 
 
 console.log("---------------------------------------------")
@@ -88,4 +85,4 @@ console.log(" is active and running for service")
 console.log("---------------------------------------------")
 
 
-app.listen(80)
+app.listen(8080)

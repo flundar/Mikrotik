@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Full-width input fields */
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        /* Set a style for all buttons */
+        button {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        /* Extra styles for the cancel button */
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+
+        /* Center the image and position the close button */
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+            position: relative;
+        }
+
+        img.avatar {
+            width: 40%;
+            border-radius: 50%;
+        }
+
+        .container {
+            padding: 16px;
+        }
+
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto;
+            /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid #888;
+            width: 80%;
+            /* Could be more or less, depending on screen size */
+        }
+
+        /* The Close Button (x) */
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: red;
+            cursor: pointer;
+        }
+
+        /* Add Zoom Animation */
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+
+        @-webkit-keyframes animatezoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        @keyframes animatezoom {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        /* Change styles for span and cancel button on extra small screens */
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+
+            .cancelbtn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>VPN Management Login </h2>
+
+    <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add</button>
+
+    <div id="vpnusers">
+
+    </div>
+
+
+    <div id="id01" class="modal">
+
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close"
+                title="Close Modal">&times;</span>
+        </div>
+        <div class="container">
+
+            <label for="profile""><b>IP Adress</b></label>
+                <input  id="profile" type=" text" placeholder="185.X.X.X" name="profile" required>
+
+                <label for="name"><b>Username</b></label>
+                <input id="name" type="text" placeholder="Enter Username" name="name" required>
+
+                <label for="password""><b>Password</b></label>
+                <input id="password" type="password" placeholder="Enter Password" name="password" required>
+                    <button onclick="addPost()">Add</button>
+        </div>
+    </div>
+
+    <div id="id02" class="modal">
+
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id02').style.display='none'" class="close"
+                title="Close Modal">&times;</span>
+        </div>
+        <div class="container">
+            <label id="editid"><b></b></label>
+            <label for="nameedit"><b>Username</b></label>
+            <input id="nameedit" type="text" placeholder="Enter Username" name="name" required>
+
+            <label for="passwordedit""><b>Password</b></label>
+                <input id="passwordedit" type="password" placeholder="Enter Password" name="password" required>
+                <button onclick="editPost()">Edit</button>
+        </div>
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        var modal2 = document.getElementById('id02');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal2) {
+                modal2.style.display = "none";
+            }
+        }
+
+
+        let selectPage = document.getElementById("vpnusers")
+
+
+        let profilesHTML = ``
+        var profiles = '<%- JSON.stringify(profiles) %>'
+        if (profiles) {
+
+            profiles = JSON.parse(profiles)
+
+
+            for (let i = 0; i < profiles.length; i++) {
+                profilesHTML +=
+                    `
+            <span>ID: ${i}
+            <span>Name: ${profiles[i].name}
+            <span>Password: ${profiles[i].password}
+            <button onClick="deletePost(${i})">Remove</button>
+            <button onClick="showEdit(${i})">Edit</button>
+            <br>
+            `
+            }
+        } else {
+            profilesHTML +=
+                `
+        <span>No Value</span>
+        `
+        }
+        selectPage.innerHTML =
+            `
+            <div class="select-profiles-area">
+                ${profilesHTML}
+            </div>
+    `
+
+        function deletePost(id) {
+            console.log("remove!")
+            window.post = function (url, data) {
+                return fetch(url, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+            }
+
+            // ...
+
+            post("api/vpn/remove", {
+                id: id
+            });
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 100);
+
+
+        }
+
+        function addPost(id) {
+            let name = document.getElementById("name").value
+            let password = document.getElementById("password").value
+            let profile = document.getElementById("profile").value
+            console.log(name, password, profile)
+            window.post = function (url, data) {
+                return fetch(url, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+            }
+
+            post("api/vpn/add", {
+                name: name,
+                password: password,
+                profile: profile
+            });
+            setTimeout(() => {
+                window.location.reload();
+            }, 100);
+        }
+
+        function showEdit(id) {
+            document.getElementById("editid").innerText = `${id}`
+            document.getElementById('id02').style.display = 'block'
+            document.getElementById("nameedit").value = `${profiles[id].name}`
+            document.getElementById("passwordedit").value = `${profiles[id].password}`
+        }
+
+        function editPost() {
+            let id = document.getElementById("editid").innerText
+            let name = document.getElementById("nameedit").value
+            let password = document.getElementById("passwordedit").value
+            window.post = function (url, data) {
+                return fetch(url, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+            }
+
+            post("api/vpn/edit", {
+                id: id,
+                name: name,
+                password: password
+            });
+            setTimeout(() => {
+                window.location.reload();
+            }, 100);
+        }
+    </script>
+
+</body>
+
+</html>

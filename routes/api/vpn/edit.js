@@ -22,16 +22,17 @@ conn.on('error', (err) => {
 router
 
   .post('/', function (req, res) {
-    if (req.body.name || req.body.password || req.body.profile) {
-      console.log(req.body.name, req.body.password, req.body.profile)
+    console.log(`istek`)
+    if (req.body.id || req.body.name || req.body.password) {
       conn.connect()
         .then(() => {
-          conn.write('/ppp/secret/add', [
+          conn.write('/ppp/secret/set', [
+              '=.id=' + req.body.id,
               '=name=' + req.body.name,
               '=password=' + req.body.password,
-              '=profile=' + req.body.profile,
             ])
             .then((data) => {
+
               res.send("finished")
               if (data.toString().toLowerCase().includes("already")) {
                 console.log("üye bulunmaktadır")

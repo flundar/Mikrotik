@@ -2,5 +2,6 @@
     "vpnlogin": "./routes/api/vpn/login",
     "vpnadd": "./routes/api/vpn/add",
     "vpnremove": "./routes/api/vpn/remove",
-    "vpnlist": "./routes/api/vpn/list"
+    "vpnlist": "./routes/api/vpn/list",
+    "vpnedit": "./routes/api/vpn/edit"
 }
