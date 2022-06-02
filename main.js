@@ -52,13 +52,19 @@ app.get('/home', function (req, res) {
     // isim : localisim,
   })
 })
+conn.on('error', (err) => {
+  console.log(err);
+});
 
+var dataprofiles
 app.get('/menu', function (req, res) {
   conn.connect()
   .then(() => {
     conn.write('/ppp/secret/getall')
       .then((data) => {
         console.log(data);
+        dataprofiles = data
+        return
       })
       .catch((err) => {
         console.log(err)
@@ -69,7 +75,9 @@ app.get('/menu', function (req, res) {
     console.log(err)
     return
   });
+  conn.close()
   res.render('add', {
+    profiles: dataprofiles 
   })
 })
 
