@@ -26,41 +26,28 @@ router
   .post('/', function (req, res) {
     session = req.session
     if (session.user) {
-    if (req.body.id || req.body.id == 0) {
-      console.log(req.body.id)
-      conn.connect()
-        .then(() => {
-          conn.write('/ppp/secret/remove', [
-              '=.id=' + req.body.id,
-            ])
-            .then((data) => {
-			  res.send("finished")
-              if(data.toString().toLowerCase().includes("already")){
-                console.log("üye bulunmaktadır")
-                conn.close()
-                return
-              }
-            })
-            .catch((err) => {
-              if(err.toString().toLowerCase().includes("already")){
-                console.log("üye bulunmaktadır")
-                conn.close()
-                return
-              }
-            });
-        })
-        .catch((err) => {
-          if(err.toString().toLowerCase().includes("already")){
-            console.log("üye bulunmaktadır")
-            conn.close()
-            return
-          }
-        });
-      res.send("bitti")
+      if (req.body.id || req.body.id == 0) {
+        console.log(req.body.id)
+        conn.connect()
+          .then(() => {
+            conn.write('/ppp/secret/remove', [
+                '=.id=' + req.body.id,
+              ])
+              .then((data) => {
+                res.send("finished")
+              })
+              .catch((err) => {
+                console.log(err)
+              });
+          })
+          .catch((err) => {
+            console.log(err)
+          });
+        res.send("bitti")
+      }
+    } else {
+      res.redirect("/home")
     }
-  } else {
-    res.send("couldn't verified")
-  }
   })
 
 module.exports = router;

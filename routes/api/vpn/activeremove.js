@@ -35,8 +35,7 @@ router
               '=.id=' + req.body.id,
             ])
             .then((data) => {
-			  console.log(data)
-			  res.send("finished")
+			       res.send("finished")
               if(data.toString().toLowerCase().includes("already")){
                 console.log("üye bulunmaktadır")
                 conn.close()
