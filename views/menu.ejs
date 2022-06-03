@@ -145,46 +145,34 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <div id="editform" style="display: none;">
+                <div id="editform" style="display: block;">
                   <div class="card card-primary">
                     <div class="card-header">
                       <h3 class="card-title">Quick Example</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form>
+
                       <div class="card-body">
                         <div class="form-group">
-                          <label for="exampleInputEmail1">Email address</label>
-                          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                          <label for="profile">Profile</label>
+                          <input type="text" value="<%=profile%>" class="form-control" id="profile" placeholder="VPN Profile" disabled>
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputPassword1">Password</label>
-                          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                          <label for="username">Username</label>
+                          <input type="text" class="form-control" id="username" placeholder="VPN Username">
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputFile">File input</label>
-                          <div class="input-group">
-                            <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="exampleInputFile">
-                              <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                            </div>
-                            <div class="input-group-append">
-                              <span class="input-group-text">Upload</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                          <label for="password">Password</label>
+                          <input type="password" class="form-control" id="password" placeholder="VPN Password">
                         </div>
                       </div>
                       <!-- /.card-body -->
       
                       <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" onclick="addPost()" class="btn btn-primary">Add</button>
+                        <button type="submit" onclick="addPost()" class="btn btn-cancel">Cancel</button>
                       </div>
-                    </form>
                   </div>
                 </div>
                 <table class="table table-bordered table-hover">
@@ -284,13 +272,13 @@
 
             setTimeout(() => {
                 window.location.reload();
-            }, 120);
+            }, 300);
 
 
         }
 
         function addPost(id) {
-            let name = document.getElementById("name").value
+            let name = document.getElementById("username").value
             let password = document.getElementById("password").value
             let profile = document.getElementById("profile").value
             console.log(name, password, profile)
@@ -309,9 +297,9 @@
                 password: password,
                 profile: profile
             });
-            setTimeout(() => {
-                window.location.reload();
-            }, 120);
+           setTimeout(() => {
+                 window.location.reload();
+             }, 300);
         }
 
         function showEdit(id) {
@@ -342,7 +330,7 @@
             });
             setTimeout(() => {
                 window.location.reload();
-            }, 120);
+            }, 300);
         }
 
         function firewallPost() {
@@ -361,7 +349,7 @@
             });
             setTimeout(() => {
                 window.location.reload();
-            }, 120);
+            }, 300);
         }
 </script>
 <!-- jQuery -->

@@ -12,7 +12,8 @@ const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 
 
-const settings = require('./config.json')
+const settings = require('./config.json');
+const { profile } = require('console');
 
 
 
@@ -99,6 +100,7 @@ app.get('/menu', function (req, res) {
               profiles: dataprofiles,
               firewall: firewall,
               username: session.user,
+              profile: settings.profile,
             })
           })
           .catch((err) => {
