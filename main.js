@@ -129,6 +129,7 @@ app.get('/activeusers', function (req, res) {
         .then((data) => {
           res.render('activeusers', {
             active: data,
+            username: session.user
           })
         })
         .catch((err) => {

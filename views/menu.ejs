@@ -102,6 +102,18 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>VPN</p>
                 </a>
+                <a href="./activeusers" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>VPN Activeusers</p>
+                </a>
+                <a href="./showlog" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>VPN Log</p>
+                </a>
+                <a href="./showalllog" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Log</p>
+                </a>
               </li>
             </ul>
           </li>
@@ -120,7 +132,7 @@
           <div class="col-sm-6">
             <h1 class="m-0">Dashboard</h1>
             <br>
-            <button type="button" style="max-width: fit-content;" class="btn btn-block btn-warning btn-lg">Add</button>
+            <button type="button" style="max-width: fit-content;" onclick="showAdd(true)" class="btn btn-block btn-warning btn-lg">Add</button>
            
           </div><!-- /.col -->
           <div class="col-sm-6">
@@ -145,10 +157,10 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <div id="editform" style="display: block;">
+                <div id="addform" style="display: none;">
                   <div class="card card-primary">
                     <div class="card-header">
-                      <h3 class="card-title">Quick Example</h3>
+                      <h3 class="card-title">Add VPN</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
@@ -171,7 +183,37 @@
       
                       <div class="card-footer">
                         <button type="submit" onclick="addPost()" class="btn btn-primary">Add</button>
-                        <button type="submit" onclick="addPost()" class="btn btn-cancel">Cancel</button>
+                        <button type="submit" onclick="showAdd(false)" class="btn btn-danger">Cancel</button>
+                      </div>
+                  </div>
+                </div>
+                <div id="editform" style="display: none;">
+                  <div class="card card-primary">
+                    <div class="card-header">
+                      <h3 class="card-title">Edit VPN</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+
+                      <div class="card-body">
+                        <div class="form-group">
+                          <label for="profile">Profile</label>
+                          <input type="text" value="<%=profile%>" class="form-control" id="profile" placeholder="VPN Profile" disabled>
+                        </div>
+                        <div class="form-group">
+                          <label for="nameedit">Username</label>
+                          <input type="text" class="form-control" id="nameedit" placeholder="VPN Username">
+                        </div>
+                        <div class="form-group">
+                          <label for="passwordedit">Password</label>
+                          <input type="passwordedit" class="form-control" id="passwordedit" placeholder="VPN Password">
+                        </div>
+                      </div>
+                      <!-- /.card-body -->
+      
+                      <div class="card-footer">
+                        <button type="submit" onclick="editPost()" class="btn btn-primary">Edit</button>
+                        <button type="submit" onclick="showEdit(0,false)" class="btn btn-danger">Cancel</button>
                       </div>
                   </div>
                 </div>
@@ -179,7 +221,6 @@
                   <thead>
                   <tr>
                     <th>NAME</th>
-                   
                     <th>PASSWORD</th>
                     <th>Edit</th>
                     <th>Remove</th>
@@ -233,10 +274,9 @@
                 profilesHTML +=
                     `
                     <tr> 
-
                     <td>${profiles[i].name}</td>
                     <td>${profiles[i].password}</td>
-                    <td><button class="btn btn-block bg-gradient-success" onClick="showEdit(${i})">Edit</button> </td>
+                    <td><button class="btn btn-block bg-gradient-success" onClick="showEdit(${i},true)">Edit</button> </td>
                     <td><button class="btn btn-block bg-gradient-danger" onClick="deletePost(${i})">Remove</button> </td>
                     </tr>
             `
@@ -302,15 +342,29 @@
              }, 300);
         }
 
-        function showEdit(id) {
-            document.getElementById("editid").innerText = `${id}`
-            document.getElementById('id02').style.display = 'block'
+
+        var editid
+        function showEdit(id,status) {
+          if (status){
+            editid = `${id}`
+            document.getElementById('editform').style.display = 'block'
             document.getElementById("nameedit").value = `${profiles[id].name}`
             document.getElementById("passwordedit").value = `${profiles[id].password}`
+          } else {
+            document.getElementById('editform').style.display = 'none'
+          }
+        }
+
+        function showAdd(status) {
+          if(status){
+            document.getElementById('addform').style.display = 'block'
+          } else {
+            document.getElementById('addform').style.display = 'none'
+          }
         }
 
         function editPost() {
-            let id = document.getElementById("editid").innerText
+            let id = editid
             let name = document.getElementById("nameedit").value
             let password = document.getElementById("passwordedit").value
             window.post = function (url, data) {
