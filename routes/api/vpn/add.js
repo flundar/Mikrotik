@@ -24,6 +24,7 @@ conn.on('error', (err) => {
 router
 
   .post('/', function (req, res) {
+    session = req.session
     if (session.user) {
     if (req.body.name || req.body.password || req.body.profile) {
       console.log(req.body.name, req.body.password, req.body.profile)

@@ -23,7 +23,7 @@ const conn = new RosApi({
   user: settings.username,
   password: settings.password,
 });
-
+var firewall = false
 
 app.use(sessions({
   secret: "asirigizlisecret915818fsjw",
@@ -41,6 +41,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 var session;
+var dataprofiles;
 
 
 app.use(bodyParser.json());
@@ -85,9 +86,10 @@ app.get('/menu', function (req, res) {
       .then(() => {
         conn.write('/ppp/secret/getall')
           .then((data) => {
-            console.log(data)
+            dataprofiles = data
             res.render('menu', {
-              profiles: data,
+              profiles: dataprofiles,
+              firewall: "Online",
             })
           })
           .catch((err) => {
@@ -108,6 +110,8 @@ app.get('/menu', function (req, res) {
 })
 
 app.get('/activeusers', function (req, res) {
+  session = req.session
+  if (session.user) {
   conn.connect()
     .then(() => {
       conn.write('/ppp/active/getall')
@@ -125,6 +129,66 @@ app.get('/activeusers', function (req, res) {
       console.log(err)
       return
     });
+  } else {
+    res.send("couldn't verified")
+  }
+})
+
+
+
+app.post('/api/vpn/firewall', function (req, res) {
+  session = req.session
+  if (session.user) {
+    conn.connect()
+      .then(() => {
+        if(firewall){
+          firewall = false
+          conn.write('/ip/firewall/raw/set',[
+            "=.id=1",
+            "=disabled=yes"
+          ])
+          conn.write('/ip/firewall/raw/set',[
+            "=.id=2",
+            "=disabled=yes"
+          ])
+          .catch((err) => {
+            console.log(err)
+            res.send("cannot connect")
+            return
+          });
+          res.render('menu', {
+            profiles: dataprofiles,
+            firewall: "Offline",
+          })
+        }else{
+          firewall = true
+          conn.write('/ip/firewall/raw/set',[
+            "=.id=1",
+            "=disabled=no"
+          ])
+          conn.write('/ip/firewall/raw/set',[
+            "=.id=2",
+            "=disabled=no"
+          ])
+          .catch((err) => {
+            console.log(err)
+            res.send("cannot connect")
+            return
+          });
+          res.render('menu', {
+            profiles: dataprofiles,
+            firewall: "Online",
+          })
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        res.send("cannot connect")
+        return
+      });
+  } else {
+    res.send("couldn't verified")
+  }
 })
 
 

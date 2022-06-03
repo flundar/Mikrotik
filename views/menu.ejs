@@ -156,6 +156,7 @@
     <h2>VPN Management Login </h2>
 
     <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add</button>
+    <button onclick="firewallPost()" style="width:auto;">Firewall <% firewall%></button>
     <button onclick="window.location.href='/activeusers'" style="width:auto;">Active Users</button>
 
     <div id="vpnusers">
@@ -333,8 +334,25 @@
             });
             setTimeout(() => {
                 window.location.reload();
-            }, 100);
+            }, 120);
         }
+
+        function firewallPost() {
+           
+            window.post = function (url, data) {
+                return fetch(url, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+            }
+
+            post("api/vpn/firewall", {
+            });
+        }
+
     </script>
 
 </body>

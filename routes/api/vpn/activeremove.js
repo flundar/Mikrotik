@@ -24,6 +24,7 @@ conn.on('error', (err) => {
 router
 
   .post('/', function (req, res) {
+    session = req.session
     if (session.user) {
 	
     if (req.body.id || req.body.id == 0) {
