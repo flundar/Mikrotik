@@ -98,6 +98,7 @@ app.get('/menu', function (req, res) {
             res.render('menu', {
               profiles: dataprofiles,
               firewall: firewall,
+              username: session.user,
             })
           })
           .catch((err) => {

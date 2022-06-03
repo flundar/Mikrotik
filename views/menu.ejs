@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> 2ETelekom| Dashboard</title>
+  <title> 2ETelekom | Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -57,7 +57,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="menu" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">2ETelekom | Panel</span>
     </a>
@@ -67,7 +67,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
-          <a href="#" class="d-block">username</a>
+          <a href="#" class="d-block"><%=username%></a>
         </div>
       </div>
 
@@ -98,7 +98,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link active">
+                <a href="./menu" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>VPN</p>
                 </a>
@@ -119,6 +119,9 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">Dashboard</h1>
+            <br>
+            <button type="button" style="max-width: fit-content;" class="btn btn-block btn-warning btn-lg">Add</button>
+           
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -137,31 +140,23 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
+                
                 <h3 class="card-title">VPN Users</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="tableofvpn" class="table table-bordered table-hover">
+                <table class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
+                    <th>NAME</th>
+                   
+                    <th>PASSWORD</th>
+                    <th>Edit</th>
+                    <th>Remove</th>
                   </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="tableofvpn">
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                  </tr>
-                  </tfoot>
                 </table>
               </div>
               <!-- /.card-body -->
@@ -178,10 +173,10 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    <strong>Copyright &copy; 2014-2021 <a href="https://flundar.com">flundar.com</a></strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.2.0
+      <b>Version</b> 1.2.0
     </div>
   </footer>
 
@@ -207,9 +202,10 @@
             for (let i = 0; i < profiles.length; i++) {
                 profilesHTML +=
                     `
-                    <tr>
-                    <td>Name: ${profiles[i].name}</td>
-                    <td>Password: ${profiles[i].password}</td>
+                    <tr> 
+
+                    <td>${profiles[i].name}</td>
+                    <td>${profiles[i].password}</td>
                     <td><button class="btn btn-block bg-gradient-success" onClick="showEdit(${i})">Edit</button> </td>
                     <td><button class="btn btn-block bg-gradient-danger" onClick="deletePost(${i})">Remove</button> </td>
                     </tr>
@@ -356,50 +352,8 @@
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
 </body>
 </html>
 
 
-<div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Quick Example</h3>
-              </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <form>
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                      <div class="input-group-append">
-                        <span class="input-group-text">Upload</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                  </div>
-                </div>
-                <!-- /.card-body -->
-
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </form>
-            </div>
