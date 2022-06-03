@@ -74,7 +74,14 @@ app.get('/', function (req, res) {
 
 
 app.get('/login', function (req, res) {
-  res.render('login')
+  session = req.session
+  if (session.user) {
+    res.redirect('menu')
+  } else {
+    res.render('login')
+  }
+ 
+ 
 })
 conn.on('error', (err) => {
   console.log(err);
