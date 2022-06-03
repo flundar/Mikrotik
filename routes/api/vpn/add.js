@@ -24,6 +24,7 @@ conn.on('error', (err) => {
 router
 
   .post('/', function (req, res) {
+    if (session.user) {
     if (req.body.name || req.body.password || req.body.profile) {
       console.log(req.body.name, req.body.password, req.body.profile)
       conn.connect()
@@ -58,6 +59,9 @@ router
         });
       res.send("bitti")
     }
+  } else {
+    res.send("couldn't verified")
+  }
   })
 
 module.exports = router;

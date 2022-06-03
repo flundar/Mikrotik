@@ -24,7 +24,8 @@ conn.on('error', (err) => {
 router
 
   .post('/', function (req, res) {
-    console.log(`istek`)
+    session = req.session
+    if (session.user) {
     if (req.body.id || req.body.name || req.body.password) {
       conn.connect()
         .then(() => {
@@ -59,6 +60,9 @@ router
         });
       res.send("bitti")
     }
+  } else {
+    res.send("couldn't verified")
+  }
   })
 
 module.exports = router;
