@@ -1,16 +1,22 @@
 const express = require('express')
 const app = express()
-const path = require('path')
-const request = require('request')
 const fs = require('fs')
 const bodyParser = require("body-parser");
 const routing = require('./lib/routes.json')
-const db = require("./lib/database")
 const {
   json
 } = require('body-parser')
 
+
+const cookieParser = require("cookie-parser");
+const sessions = require('express-session');
+
+
 const settings = require('./config.json')
+
+
+
+
 const RosApi = require('node-routeros').RouterOSAPI;
 const conn = new RosApi({
   host: settings.ip,
@@ -19,9 +25,23 @@ const conn = new RosApi({
 });
 
 
+app.use(sessions({
+  secret: "asirigizlisecret915818fsjw",
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 360000
+  },
+  resave: false
+}));
+
+app.use(cookieParser());
+
 app.use(bodyParser.urlencoded({
   extended: false
 }));
+
+var session;
+
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/views'))
@@ -52,32 +72,39 @@ app.get('/', function (req, res) {
 
 
 app.get('/home', function (req, res) {
-  res.render('index', {
-    // isim : localisim,
-  })
+  res.render('index', {})
 })
 conn.on('error', (err) => {
   console.log(err);
 });
 
 app.get('/menu', function (req, res) {
-  conn.connect()
-    .then(() => {
-      conn.write('/ppp/secret/getall')
-        .then((data) => {
-          res.render('menu', {
-            profiles: data,
+  session = req.session
+  if (session.user) {
+    conn.connect()
+      .then(() => {
+        conn.write('/ppp/secret/getall')
+          .then((data) => {
+            console.log(data)
+            res.render('menu', {
+              profiles: data,
+            })
           })
-        })
-        .catch((err) => {
-          console.log(err)
-          return
-        });
-    })
-    .catch((err) => {
-      console.log(err)
-      return
-    });
+          .catch((err) => {
+            console.log(err)
+            res.send("cannot connect")
+            return
+          });
+      })
+      .catch((err) => {
+        console.log(err)
+        res.send("cannot connect")
+        return
+      });
+  } else {
+    res.send("couldn't verified")
+  }
+
 })
 
 app.get('/activeusers', function (req, res) {
