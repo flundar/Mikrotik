@@ -95,7 +95,6 @@ app.get('/menu', function (req, res) {
         conn.write('/ppp/secret/getall')
           .then((data) => {
             dataprofiles = data
-            console.log(data)
             res.render('menu', {
               profiles: dataprofiles,
               firewall: firewall,
