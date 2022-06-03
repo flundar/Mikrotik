@@ -23,6 +23,7 @@ const conn = new RosApi({
   user: settings.username,
   password: settings.password,
 });
+
 var firewall = false
 
 app.use(sessions({
@@ -87,9 +88,10 @@ app.get('/menu', function (req, res) {
         conn.write('/ppp/secret/getall')
           .then((data) => {
             dataprofiles = data
+            console.log(data)
             res.render('menu', {
               profiles: dataprofiles,
-              firewall: "Online",
+              firewall: firewall,
             })
           })
           .catch((err) => {
@@ -104,7 +106,7 @@ app.get('/menu', function (req, res) {
         return
       });
   } else {
-    res.send("couldn't verified")
+    res.redirect("/home")
   }
 
 })
@@ -130,9 +132,61 @@ app.get('/activeusers', function (req, res) {
       return
     });
   } else {
-    res.send("couldn't verified")
+    res.redirect("/home")
   }
 })
+
+
+app.get('/showlog', function (req, res) {
+  session = req.session
+  if (session.user) {
+  conn.connect()
+    .then(() => {
+      conn.write('/log/print')
+        .then((data) => {
+          res.render('showlog', {
+            veri: data,
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+          return
+        });
+    })
+    .catch((err) => {
+      console.log(err)
+      return
+    });
+  } else {
+    res.redirect("/home")
+  }
+})
+
+app.get('/showalllog', function (req, res) {
+  session = req.session
+  if (session.user) {
+  conn.connect()
+    .then(() => {
+      conn.write('/log/print')
+        .then((data) => {
+          res.render('showalllog', {
+            veri: data,
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+          return
+        });
+    })
+    .catch((err) => {
+      console.log(err)
+      return
+    });
+  } else {
+    res.redirect("/home")
+  }
+})
+
 
 
 
@@ -156,10 +210,6 @@ app.post('/api/vpn/firewall', function (req, res) {
             res.send("cannot connect")
             return
           });
-          res.render('menu', {
-            profiles: dataprofiles,
-            firewall: "Offline",
-          })
         }else{
           firewall = true
           conn.write('/ip/firewall/raw/set',[
@@ -175,10 +225,6 @@ app.post('/api/vpn/firewall', function (req, res) {
             res.send("cannot connect")
             return
           });
-          res.render('menu', {
-            profiles: dataprofiles,
-            firewall: "Online",
-          })
         }
       })
       .catch((err) => {
@@ -190,6 +236,7 @@ app.post('/api/vpn/firewall', function (req, res) {
     res.send("couldn't verified")
   }
 })
+
 
 
 console.log("---------------------------------------------")
