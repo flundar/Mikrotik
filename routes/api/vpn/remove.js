@@ -46,7 +46,7 @@ router
         res.send("bitti")
       }
     } else {
-      res.redirect("/home")
+      res.redirect("/login")
     }
   })
 

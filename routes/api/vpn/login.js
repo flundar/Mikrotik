@@ -13,10 +13,10 @@ router
 				session.user = req.body.username;
 				res.redirect('/menu');
 			} else {
-				res.redirect('/home');
+				res.redirect('/login');
 			}
 		} else {
-			res.redirect('/home');
+			res.redirect('/login');
 		}
 	})
 

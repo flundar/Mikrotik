@@ -68,13 +68,13 @@ app.use('/api/vpn/activeremove', require(routing.vpnactiveremove))
 
 
 app.get('/', function (req, res) {
-  res.redirect('/home')
+  res.redirect('/login')
 })
 
 
 
-app.get('/home', function (req, res) {
-  res.render('index', {})
+app.get('/login', function (req, res) {
+  res.render('login')
 })
 conn.on('error', (err) => {
   console.log(err);
@@ -106,7 +106,7 @@ app.get('/menu', function (req, res) {
         return
       });
   } else {
-    res.redirect("/home")
+    res.redirect("/login")
   }
 
 })
@@ -132,7 +132,7 @@ app.get('/activeusers', function (req, res) {
       return
     });
   } else {
-    res.redirect("/home")
+    res.redirect("/login")
   }
 })
 
@@ -158,7 +158,7 @@ app.get('/showlog', function (req, res) {
       return
     });
   } else {
-    res.redirect("/home")
+    res.redirect("/login")
   }
 })
 
@@ -183,7 +183,7 @@ app.get('/showalllog', function (req, res) {
       return
     });
   } else {
-    res.redirect("/home")
+    res.redirect("/login")
   }
 })
 
@@ -237,7 +237,9 @@ app.post('/api/vpn/firewall', function (req, res) {
   }
 })
 
-
+app.get('*', function(req, res){
+  res.status(404).send('what???');
+});
 
 console.log("---------------------------------------------")
 console.log(" is active and running for service")
