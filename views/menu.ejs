@@ -31,7 +31,7 @@
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake" src="https://cdn.discordapp.com/attachments/647138649581813781/982585362234867742/unknown.png" alt="logo">
   </div>
 
   <!-- Navbar -->
@@ -58,8 +58,8 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="menu" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">2ETelekom | Panel</span>
+      <img src="https://cdn.discordapp.com/attachments/647138649581813781/982585362234867742/unknown.png" alt="AdminLTE Logo" class="brand-image" style="opacity: .8">
+      <br>
     </a>
 
     <!-- Sidebar -->
@@ -72,16 +72,7 @@
       </div>
 
       <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div>
+
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -92,7 +83,7 @@
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Dashboard
+                Yönetim
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -104,7 +95,7 @@
                 </a>
                 <a href="./activeusers" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>VPN Activeusers</p>
+                  <p>VPN Aktif Kullanıcılar</p>
                 </a>
                 <a href="./showlog" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -126,9 +117,10 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
+            <h1 class="m-0">Yönetim</h1>
             <br>
-            <button type="button" style="max-width: fit-content;" onclick="showAdd(true)" class="btn btn-block btn-warning btn-lg">Add</button>
+            <button type="button" style="max-width: fit-content;" onclick="showAdd(true)" class="btn btn-block btn-warning btn-lg">Ekle</button>
+            <button type="button" onclick="firewallPost()" id="firewallstatusbutton" style="max-width: fit-content;" class="btn btn-block btn-warning btn-lg">Firewall</button>
            
           </div><!-- /.col -->
           <div class="col-sm-6">
@@ -149,37 +141,37 @@
             <div class="card">
               <div class="card-header">
                 
-                <h3 class="card-title">VPN Users</h3>
+                <h3 class="card-title">VPN Kullanıcıları</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <div id="addform" style="display: none;">
                   <div class="card card-primary">
                     <div class="card-header">
-                      <h3 class="card-title">Add VPN</h3>
+                      <h3 class="card-title">VPN Ekle</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
 
                       <div class="card-body">
                         <div class="form-group">
-                          <label for="profile">Profile</label>
+                          <label for="profile">Profil</label>
                           <input type="text" value="<%=profile%>" class="form-control" id="profile" placeholder="VPN Profile" disabled>
                         </div>
                         <div class="form-group">
-                          <label for="username">Username</label>
+                          <label for="username">Kullanıcı Adı</label>
                           <input type="text" class="form-control" id="username" placeholder="VPN Username">
                         </div>
                         <div class="form-group">
-                          <label for="password">Password</label>
+                          <label for="password">Şifre</label>
                           <input type="password" class="form-control" id="password" placeholder="VPN Password">
                         </div>
                       </div>
                       <!-- /.card-body -->
       
                       <div class="card-footer">
-                        <button type="submit" onclick="addPost()" class="btn btn-primary">Add</button>
-                        <button type="submit" onclick="showAdd(false)" class="btn btn-danger">Cancel</button>
+                        <button type="submit" onclick="addPost()" class="btn btn-primary">Ekle</button>
+                        <button type="submit" onclick="showAdd(false)" class="btn btn-danger">İptal</button>
                       </div>
                   </div>
                 </div>
@@ -216,10 +208,10 @@
                 <table class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>NAME</th>
-                    <th>PASSWORD</th>
-                    <th>Edit</th>
-                    <th>Remove</th>
+                    <th>KULLANICI</th>
+                    <th>ŞİFRE</th>
+                    <th>DÜZENLE</th>
+                    <th>SİL</th>
                   </tr>
                   </thead>
                   <tbody id="tableofvpn">
@@ -240,7 +232,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://flundar.com">flundar.com</a></strong>
+    <strong>Copyright &copy; 2022 <a href="https://flundar.com">flundar.com</a></strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.2.0
@@ -272,8 +264,8 @@
                     <tr> 
                     <td>${profiles[i].name}</td>
                     <td>${profiles[i].password}</td>
-                    <td><button class="btn btn-block bg-gradient-success" onClick="showEdit(${i},true)">Edit</button> </td>
-                    <td><button class="btn btn-block bg-gradient-danger" onClick="deletePost(${i})">Remove</button> </td>
+                    <td><button class="btn btn-block bg-gradient-success" onClick="showEdit(${i},true)">Düzenle</button> </td>
+                    <td><button class="btn btn-block bg-gradient-danger" onClick="deletePost(${i})">Sil</button> </td>
                     </tr>
             `
             }
@@ -288,9 +280,7 @@
                 ${profilesHTML}
     `
 
-        function deletePost(id) {
-            console.log("remove!")
-            window.post = function (url, data) {
+    window.post = function (url, data) {
                 return fetch(url, {
                     method: "POST",
                     headers: {
@@ -298,9 +288,10 @@
                     },
                     body: JSON.stringify(data)
                 });
-            }
+    }
 
-            // ...
+        function deletePost(id) {
+            console.log("remove!")
 
             post("api/vpn/remove", {
                 id: id
@@ -317,22 +308,19 @@
             let name = document.getElementById("username").value
             let password = document.getElementById("password").value
             let profile = document.getElementById("profile").value
-            console.log(name, password, profile)
-            window.post = function (url, data) {
-                return fetch(url, {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                });
-            }
-
             post("api/vpn/add", {
                 name: name,
                 password: password,
                 profile: profile
             });
+            postData('api/vpn/add', {
+              name: name,
+              password: password,
+              profile: profile
+            })
+               .then(data => {
+                console.log(data); // JSON data parsed by `data.json()` call
+             });
            setTimeout(() => {
                  window.location.reload();
              }, 300);
@@ -363,21 +351,12 @@
             let id = editid
             let name = document.getElementById("nameedit").value
             let password = document.getElementById("passwordedit").value
-            window.post = function (url, data) {
-                return fetch(url, {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                });
-            }
-
-            post("api/vpn/edit", {
-                id: id,
-                name: name,
-                password: password
-            });
+            postData('api/vpn/edit', {
+              id: id, name: name, password: password
+            })
+               .then(data => {
+                console.log(data); // JSON data parsed by `data.json()` call
+             });
             setTimeout(() => {
                 window.location.reload();
             }, 300);
@@ -394,13 +373,49 @@
                     body: JSON.stringify(data)
                 });
             }
+            postData('api/vpn/firewallset', {
 
-            post("api/vpn/firewall", {
-            });
+            })
+               .then(data => {
+                console.log(data); // JSON data parsed by `data.json()` call
+             });
             setTimeout(() => {
                 window.location.reload();
             }, 300);
         }
+
+
+        postData('api/vpn/firewallcheck', {
+              
+            })
+               .then(data => {
+                 console.log(data[1].disabled,data[2].disabled)
+             if(data[1].disabled == "true" && data[2].disabled == "true"){
+              document.getElementById('firewallstatusbutton').className = 'btn btn-block btn-danger'
+             } else {
+             
+              document.getElementById('firewallstatusbutton').className = 'btn btn-block bg-gradient-success'
+             }
+             });
+
+
+async function postData(url = '', data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
+  });
+  return response.json() // parses JSON response into native JavaScript objects
+}
 </script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>

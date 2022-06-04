@@ -200,7 +200,7 @@ app.get('/showalllog', function (req, res) {
 
 
 
-app.post('/api/vpn/firewall', function (req, res) {
+app.post('/api/vpn/firewallset', function (req, res) {
   session = req.session
   if (session.user) {
     conn.connect()
@@ -246,6 +246,37 @@ app.post('/api/vpn/firewall', function (req, res) {
     res.send("couldn't verified")
   }
 })
+
+app.post('/api/vpn/firewallcheck', function (req, res) {
+  session = req.session
+  if (session.user) {
+    conn.connect()
+      .then(() => {
+        conn.write('/ip/firewall/raw/getall')
+          .then((data) => {
+            res.send(data)
+          })
+          .catch((err) => {
+            if(err.toString().toLowerCase().includes("already")){
+              console.log("üye bulunmaktadır")
+              conn.close()
+              return
+            }
+          });
+      })
+      .catch((err) => {
+        if(err.toString().toLowerCase().includes("already")){
+          console.log("üye bulunmaktadır")
+          conn.close()
+          return
+        }
+      });
+  
+} else {
+  res.send("couldn't verified")
+}
+})
+
 
 app.get('*', function(req, res){
   res.status(404).send('what???');

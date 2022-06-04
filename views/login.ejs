@@ -21,7 +21,7 @@
 
         /* Set a style for all buttons */
         button {
-            background-color: #04AA6D;
+            background-color: #183C96;
             color: white;
             padding: 14px 20px;
             margin: 8px 0;
@@ -54,7 +54,11 @@
         }
 
         .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             padding: 16px;
+          
         }
 
         span.psw {
@@ -93,6 +97,12 @@
             border: 1px solid #888;
             width: 80%;
             /* Could be more or less, depending on screen size */
+        }
+
+        .loginsentence{
+           align-items: center;
+           text-align: center;
+           justify-content: center;
         }
 
         /* The Close Button (x) */
@@ -152,10 +162,13 @@
 </head>
 
 <body>
+    <div class="loginsentence">
+        <img src="https://cdn.discordapp.com/attachments/770730838903095326/981908611934593074/unknown.png">
+        <h2>VPN Management Login </h2>
 
-    <h2>VPN Management Login </h2>
-
-    <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+        <button onclick="document.getElementById('id01').style.display='block'" style="width: auto;">Login</button>
+    
+    </div>
 
     <div id="id01" class="modal">
 
@@ -173,15 +186,11 @@
                 <input type="password" placeholder="Enter Password" name="password" required>
 
                 <button type="submit">Login</button>
-                <label>
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
-                </label>
             </div>
 
             <div class="container" style="background-color:#f1f1f1">
                 <button type="button" onclick="document.getElementById('id01').style.display='none'"
                     class="cancelbtn">Cancel</button>
-                <span class="psw">Forgot <a href="#">password?</a></span>
             </div>
         </form>
     </div>
