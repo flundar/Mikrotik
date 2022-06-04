@@ -110,10 +110,6 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>VPN Log</p>
                 </a>
-                <a href="./showalllog" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>All Log</p>
-                </a>
               </li>
             </ul>
           </li>
@@ -160,7 +156,6 @@
                 <table class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>ID</th>
                     <th>Name</th>
                     <th>IP</th>
                     <th>Disconnect</th>
@@ -214,13 +209,8 @@
       for (let i = 0; i < profiles.length; i++) {
           profilesHTML +=
               `
-      <span>ID: ${i}
-      <span>Name: ${profiles[i].name}
-      <span>IP: ${profiles[i]['caller-id']}
-      <button onClick="disconnect(${i})">Disconnect</button>
-      <br>
+
       <tr> 
-      <td>${i}</td>
       <td>${profiles[i].name}</td>
       <td>${profiles[i]['caller-id']}</td>
       <td><button class="btn btn-block bg-gradient-danger" onClick="disconnect(${i})">Disconnect</button> </td>
@@ -256,8 +246,12 @@
       });
       setTimeout(() => {
           window.location.reload();
-      }, 100);
+      }, 300);
   }
+
+  setTimeout(() => {
+    window.location.reload();
+  }, 5000);
 </script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
