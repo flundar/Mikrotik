@@ -1,8 +1,16 @@
 {
-   "mysqlon": false,
-   "mysql": ["10.10.70.129", "root", "", "flundar"],
    "ip": "185.93.68.2",
    "username": "admin",
    "password": "utku1994",
-   "profile": "denemevpn"
+   "profile": "denemevpn",
+   "users":[
+      {
+        "username": "utku",
+        "password": "utku1994"
+      },      
+      {
+        "username": "flundar",
+        "password": "flundar1881"
+      }
+   ]
 }

@@ -26,43 +26,41 @@ router
   .post('/', function (req, res) {
     session = req.session
     if (session.user) {
-    if (req.body.id || req.body.name || req.body.password) {
-      conn.connect()
-        .then(() => {
-          conn.write('/ppp/secret/set', [
-              '=.id=' + req.body.id,
-              '=name=' + req.body.name,
-              '=password=' + req.body.password,
-            ])
-            .then((data) => {
-
-              res.send("finished")
-              if (data.toString().toLowerCase().includes("already")) {
-                console.log("üye bulunmaktadır")
+      if (req.body.id || req.body.name || req.body.password) {
+        conn.connect()
+          .then(() => {
+            conn.write('/ppp/secret/set', [
+                '=.id=' + req.body.id,
+                '=name=' + req.body.name,
+                '=password=' + req.body.password,
+              ])
+              .then((data) => {
                 conn.close()
-                return
-              }
-            })
-            .catch((err) => {
-              if (err.toString().toLowerCase().includes("already")) {
-                console.log("üye bulunmaktadır")
-                conn.close()
-                return
-              }
-            });
-        })
-        .catch((err) => {
-          if (err.toString().toLowerCase().includes("already")) {
-            console.log("üye bulunmaktadır")
-            conn.close()
-            return
-          }
-        });
-      res.send("bitti")
+                if (data.toString().toLowerCase().includes("already")) {
+                  console.log("üye bulunmaktadır")
+                  return
+                }
+              })
+              .catch((err) => {
+                if (err.toString().toLowerCase().includes("already")) {
+                  console.log("üye bulunmaktadır")
+                  conn.close()
+                  return
+                }
+              });
+          })
+          .catch((err) => {
+            if (err.toString().toLowerCase().includes("already")) {
+              console.log("üye bulunmaktadır")
+              conn.close()
+              return
+            }
+          });
+        res.send("bitti")
+      }
+    } else {
+      res.send("couldn't verified")
     }
-  } else {
-    res.send("couldn't verified")
-  }
   })
 
 module.exports = router;
