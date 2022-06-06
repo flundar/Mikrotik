@@ -35,7 +35,6 @@ router
                 '=profile=' + req.body.profile,
               ])
               .then((data) => {
-                conn.close()
                 if (data.toString().toLowerCase().includes("already")) {
                   console.log("üye bulunmaktadır")
                   return

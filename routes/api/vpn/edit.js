@@ -35,7 +35,6 @@ router
                 '=password=' + req.body.password,
               ])
               .then((data) => {
-                conn.close()
                 if (data.toString().toLowerCase().includes("already")) {
                   console.log("üye bulunmaktadır")
                   return

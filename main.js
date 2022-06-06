@@ -283,7 +283,7 @@ app.get('*', function(req, res){
 });
 
 console.log("---------------------------------------------")
-console.log(" is active and running for service")
+console.log("active")
 console.log("---------------------------------------------")
 
 

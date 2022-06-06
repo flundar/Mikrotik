@@ -34,7 +34,6 @@ router
                 '=.id=' + req.body.id,
               ])
               .then((data) => {
-                conn.close()
               })
               .catch((err) => {
                 console.log(err)
