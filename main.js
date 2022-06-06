@@ -259,7 +259,6 @@ app.post('/api/vpn/firewallcheck', function (req, res) {
           .catch((err) => {
             if(err.toString().toLowerCase().includes("already")){
               console.log("üye bulunmaktadır")
-              conn.close()
               return
             }
           });
@@ -267,7 +266,6 @@ app.post('/api/vpn/firewallcheck', function (req, res) {
       .catch((err) => {
         if(err.toString().toLowerCase().includes("already")){
           console.log("üye bulunmaktadır")
-          conn.close()
           return
         }
       });

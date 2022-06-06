@@ -43,7 +43,6 @@ router
               .catch((err) => {
                 if (err.toString().toLowerCase().includes("already")) {
                   console.log("üye bulunmaktadır")
-                  conn.close()
                   return
                 }
               });
@@ -51,7 +50,6 @@ router
           .catch((err) => {
             if (err.toString().toLowerCase().includes("already")) {
               console.log("üye bulunmaktadır")
-              conn.close()
               return
             }
           });
