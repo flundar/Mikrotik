@@ -330,6 +330,8 @@
         var editid
         function showEdit(id,status) {
           if (status){
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0; 
             editid = `${id}`
             document.getElementById('editform').style.display = 'block'
             document.getElementById("nameedit").value = `${profiles[id].name}`
@@ -341,6 +343,8 @@
 
         function showAdd(status) {
           if(status){
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0; 
             document.getElementById('addform').style.display = 'block'
           } else {
             document.getElementById('addform').style.display = 'none'
