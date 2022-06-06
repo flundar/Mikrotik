@@ -14,6 +14,9 @@ router
 				if (req.body.username == settings.users[i].username && req.body.password == settings.users[i].password) {
 					logged = true
 				}
+				else{
+					logged = false
+				}
 			}
 
 			if (logged) {
