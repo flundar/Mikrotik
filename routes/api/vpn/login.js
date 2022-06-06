@@ -13,12 +13,14 @@ router
 			for (let i = 0; i < settings.users.length; i++) {
 				if (req.body.username == settings.users[i].username && req.body.password == settings.users[i].password) {
 					logged = true
+					break
 				}
 				else{
+					console.log("test")
 					logged = false
 				}
 			}
-
+            console.log(logged)
 			if (logged) {
 				session = req.session;
 				session.user = req.body.username;
