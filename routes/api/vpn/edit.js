@@ -36,24 +36,28 @@ router
               ])
               .then((data) => {
                 if (data.toString().toLowerCase().includes("already")) {
-                  console.log("üye bulunmaktadır")
+                  console.log("member already registered")
+                  console.log(data.toString().toLowerCase())
                   return
                 }
               })
               .catch((err) => {
                 if (err.toString().toLowerCase().includes("already")) {
-                  console.log("üye bulunmaktadır")
+                  console.log("member already registered")
+                  console.log(data.toString().toLowerCase())
+                  
                   return
                 }
               });
           })
           .catch((err) => {
             if (err.toString().toLowerCase().includes("already")) {
-              console.log("üye bulunmaktadır")
+              console.log("member already registered")
+              console.log(data.toString().toLowerCase())
               return
             }
           });
-        res.send("bitti")
+        res.send("finished")
       }
     } else {
       res.send("couldn't verified")
